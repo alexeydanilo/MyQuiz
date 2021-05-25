@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Quiz2";
+}
+
+<div>
+    <h3 class="display-4 text-center">До скольки» или «доскольки</h3>
+    <img src="~/image/time.jpg" class="rounded mx-auto d-block" id="q1" />
+
+    <p class="text-sm-center">
+        Слово «до скольки» пишется обычно раздельно, и это доказывает, что большинство носителей языка осознает: это предлог с местоимением, он должен писаться в два слова. Невозможно даже вообразить себе слово «доскольки», ведь очевидно, что речь о времени (сколько?), о том, до какого времени что-то будет.
+        Но при этом надо следить за тем, чтобы местоимение «сколько» было употреблено в нужном падеже. Поставим вопрос: до кого, чего? Это вопрос родительного падежа. Теперь поставим в родительный падеж слово «сколько», получим «скольких». То есть ответ на вопрос, как правильно пишется слово, будет такой: пишется раздельно, но не «до скольки», а (до чего?) – до скольких. Однако и это выражение разговорное, оно нежелательно в письменной речи, лучше писать «до какого времени».
+    </p>
+   <p class="text-center">Примеры:
+    <ul>
+        <li>До скольких часов ты работаешь?</li>
+        <li>Не знаю, до скольких я там пробуду.</li>
+        <li>Ты до скольких часов будешь гулять?</li>
+        <li>И до скольких эта музыка будет орать? – возмущалась соседка.</li>
+        <li>До скольких лет нужно учиться в школе?</li>
+        </ul></p>
+    <div class="form-check">
+        <input unchecked type="checkbox" class="form-check-input" id="allow" onclick="start()">
+        <label class="form-check-label">Я согласен на запуск</label>
+    </div>
+    <form asp-controller="quiz" asp-action="test" method="get">
+        <input type="hidden" name="id" value="@null" />
+        <input type="hidden" name="quizid" value="2" />
+        <input id="btn" class="btn btn-primary rounded mx-auto d-block" type="submit" value="Начать тест" />
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+    document.getElementById("btn").disabled = true;
+
+     function start() {
+        var chbox;
+        chbox = document.getElementById('allow');
+        if (chbox.checked) {
+            document.getElementById("btn").disabled = false;
+        }
+        else {
+            document.getElementById("btn").disabled = true;
+        }
+    }
+
+
+
+</script>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MyQuiz.Models.Quiz>
+@{
+    ViewData["Title"] = "ListQuiz";
+}
+
+
+<div id="ListQuiz">
+    <h3 class="display-4 text-center">Выберите тест</h3>
+    
+    <table>
+
+    @foreach (var quiz in Model)
+    {
+        <tr>
+                <td><a href="/Quiz/Quizzes/@quiz.Id)"> <img id="imglistquiz" src="@quiz.Image" /></a></td>
+                <td><a href="/Quiz/Quizzes/@quiz.Id"> @quiz.Name</a></td>
+            </tr>
+        
+    }
+    </table>
+
+</div>
+

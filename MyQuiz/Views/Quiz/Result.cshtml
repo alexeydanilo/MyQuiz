@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "Result";
+}
+
+<h3>Ваш результат: @ViewBag.Score </h3>
+
+<form asp-controller="quiz" asp-action="ListQuiz">
+    <input type="submit" value="Назад" class="btn btn-primary btn-lg"/>
+</form>
