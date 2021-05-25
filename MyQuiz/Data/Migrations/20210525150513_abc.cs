@@ -2,16 +2,16 @@
 
 namespace MyQuiz.Data.Migrations
 {
-    public partial class mydb : Migration
+    public partial class abc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+          
         }
     }
 }

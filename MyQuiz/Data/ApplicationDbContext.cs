@@ -17,6 +17,7 @@ namespace MyQuiz.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserQuiz>()
          .HasKey(c => new { c.UserId, c.QuizId });
+            modelBuilder.Entity<Description>().HasKey(x => x.QuizId);
 
         }
 
@@ -24,6 +25,7 @@ namespace MyQuiz.Data
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Quiz> Quizzes { get; set; }
         public virtual DbSet<UserQuiz> UserQuizzes { get; set; }
+        public virtual DbSet<Description> Descriptions { get; set; }
 
      
       

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyQuiz.Data;
 using System.Security.Claims;
 using MyQuiz.Models;
+using MyQuiz.ViewModels;
 
 
 
@@ -20,11 +21,16 @@ namespace MyQuiz.Controllers
             _context = context;
         }
     
-        static int score = 0;
-        static bool complition = false;
+       
         public IActionResult Quizzes(int id)
         {
-            return View("Quizzes/Quiz" + id);
+            DescriptionTestViewModel describe = new DescriptionTestViewModel()
+            {
+                Id = id,
+                Descriptions = _context.Descriptions.Where(x => x.QuizId == id).ToList()
+        };
+
+            return View("Quizzes/Quiz", describe);
         }
         public IActionResult ListQuiz()
         {
@@ -44,19 +50,20 @@ namespace MyQuiz.Controllers
         }
 
 
+      //  static int score;
 
-        public IActionResult Test(int? id, int quizid)
+        public IActionResult Test(int? id, int quizid, int score)
         {
-            PageViewModel viewModel = new PageViewModel();
+
+            TestViewModel viewModel = new TestViewModel();
 
             viewModel.Button = "Далее";
             ViewBag.QuizId = quizid;
-          
             
-            if (complition)
+
+            if (id > (_context.Questions.Where(x => x.QuizId == quizid).OrderBy(a => a.Id).Last().Id))
             {
                 ViewBag.Score = score;
-                complition = false;
                 return View("Result");
                 
             }
@@ -76,18 +83,20 @@ namespace MyQuiz.Controllers
             if (id > (_context.Questions.Where(x => x.QuizId == quizid).OrderBy(a => a.Id).Last().Id - 1))
             {
                 viewModel.Button = "Завершить";
-                complition = true;
+               
             }
 
             ViewBag.Id = id;
+            ViewBag.Result = score;
 
             return View(viewModel);
         }
 
 
         [HttpPost]
-        public IActionResult Test(int value, int quizid, IFormCollection iformCollection)
+        public IActionResult Test(int value, int quizid, IFormCollection iformCollection, int result)
         {
+  
             value++;
             string[] questionIds = iformCollection["questionId"];
             foreach (var questionId in questionIds)
@@ -96,11 +105,12 @@ namespace MyQuiz.Controllers
                     .Answers.Where(a => a.Correct == true).FirstOrDefault().Id;
                 if (anwerIdCorrect == int.Parse(iformCollection["question_" + questionId]))
                 {
-                    score++;
+                 //ViewBag.Result = score++;
+                    result++;
                 }
             }
 
-           return RedirectToAction("Test", new { id = value, quizid = quizid });
+           return RedirectToAction("Test", new { id = value, quizid = quizid, score = result });
         }
 
     }

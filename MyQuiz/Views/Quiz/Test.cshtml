@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<MyQuiz.Models.PageViewModel>*@
-@model MyQuiz.Models.PageViewModel;
+@model MyQuiz.ViewModels.TestViewModel
 
 
 
@@ -19,11 +19,15 @@
 <li>
     <input class="form-check-input" type="radio" name="question_@question.Id" value="@answer.Id" />
     @answer.Content
-</li>}
+</li>
+}
     </ul>
-</li>            }
+</li>
+       }
     </ul>
     <input type="hidden" name="value" value="@ViewBag.Id" />
+
+    <input type="hidden" name="result" value="@ViewBag.Result" />
 
     <input type="hidden" name="quizid" value="@ViewBag.QuizId" />
 

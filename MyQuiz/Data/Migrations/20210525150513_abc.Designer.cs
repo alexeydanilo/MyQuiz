@@ -10,8 +10,8 @@ using MyQuiz.Data;
 namespace MyQuiz.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210524212011_myname")]
-    partial class myname
+    [Migration("20210525150513_abc")]
+    partial class abc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,6 +249,29 @@ namespace MyQuiz.Data.Migrations
                     b.ToTable("Answers");
                 });
 
+            modelBuilder.Entity("MyQuiz.Models.Description", b =>
+                {
+                    b.Property<int>("QuizId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Describe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuizId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuizId");
+
+                    b.HasIndex("QuizId1");
+
+                    b.ToTable("Descriptions");
+                });
+
             modelBuilder.Entity("MyQuiz.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -282,15 +305,7 @@ namespace MyQuiz.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserQuizQuizId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserQuizUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserQuizUserId", "UserQuizQuizId");
 
                     b.ToTable("Quizzes");
                 });
@@ -378,6 +393,17 @@ namespace MyQuiz.Data.Migrations
                     b.Navigation("Quiz");
                 });
 
+            modelBuilder.Entity("MyQuiz.Models.Description", b =>
+                {
+                    b.HasOne("MyQuiz.Models.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+                });
+
             modelBuilder.Entity("MyQuiz.Models.Question", b =>
                 {
                     b.HasOne("MyQuiz.Models.Quiz", "Quiz")
@@ -387,13 +413,6 @@ namespace MyQuiz.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Quiz");
-                });
-
-            modelBuilder.Entity("MyQuiz.Models.Quiz", b =>
-                {
-                    b.HasOne("MyQuiz.Models.UserQuiz", null)
-                        .WithMany("Quiezess")
-                        .HasForeignKey("UserQuizUserId", "UserQuizQuizId");
                 });
 
             modelBuilder.Entity("MyQuiz.Models.UserQuiz", b =>
@@ -410,11 +429,6 @@ namespace MyQuiz.Data.Migrations
             modelBuilder.Entity("MyQuiz.Models.Question", b =>
                 {
                     b.Navigation("Answers");
-                });
-
-            modelBuilder.Entity("MyQuiz.Models.UserQuiz", b =>
-                {
-                    b.Navigation("Quiezess");
                 });
 #pragma warning restore 612, 618
         }

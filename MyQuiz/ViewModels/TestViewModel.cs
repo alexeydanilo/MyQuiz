@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using MyQuiz.Models;
 
-
-namespace MyQuiz.Models
+namespace MyQuiz.ViewModels
 {
-    public class PageViewModel
+    public class TestViewModel
     {
         public IEnumerable<Question>  Questions{ get; set; }
         public string Button { get; set; }
+      
 
     }
 }
