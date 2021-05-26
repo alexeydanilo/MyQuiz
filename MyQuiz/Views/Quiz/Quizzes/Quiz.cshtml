@@ -4,24 +4,32 @@
 
 
 <div>
-@foreach (var item in Model.Descriptions)
-{
+    <div id="quiz"> 
+        @foreach (var item in Model.Descriptions)
+        {
+
 <h3 class="display-4 text-center">@item.Quiz.Name</h3>
-<img src="@item.Image" class="rounded mx-auto d-block" id="q1" />
-<p class="text-sm-center">@item.Describe</p>
-}
 
-<div class="form-check">
-    <input unchecked type="checkbox" class="form-check-input" id="allow" onclick="start()">
-    <label class="form-check-label">Я согласен на запуск</label>
-</div>
-<form asp-controller="quiz" asp-action="test" method="get">
-    <input type="hidden" name="id" value="@null" />
-    <input type="hidden" name="quizid" value="@Model.Id" />
+                <img src="@item.Image" class="rounded mx-auto d-block" id="q1" />
 
-    <input id="btn" class="btn btn-primary rounded mx-auto d-block" type="submit" value="Начать тест" />
-</form>
+                                <p class="text-sm-center">@item.Describe</p>}
+    </div>
 
+
+
+    <div class="form-check">
+        <input unchecked type="checkbox" class="form-check-input" id="allow" onclick="start()">
+        <label class="form-check-label">Я согласен на запуск</label>
+    </div>
+
+    <div>
+        <form asp-controller="quiz" asp-action="test" method="get">
+            <input type="hidden" name="id" value="@null" />
+            <input type="hidden" name="quizid" value="@Model.Id" />
+
+            <input id="btn" class="btn btn-primary rounded mx-auto d-block" type="submit" value="Начать тест" />
+        </form>
+    </div>
 </div>
 
 
