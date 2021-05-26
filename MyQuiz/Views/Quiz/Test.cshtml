@@ -5,33 +5,38 @@
 
 @{ ViewData["Title"] = "Test"; }
 
-<h3 class="display-4 text-center">Тестирование</h3>
-<form method="post">
-    <ul>
-        @foreach (var question in Model.Questions)
-        {
-<li>
-    @question.Content
-    <input type="hidden" name="questionId" value="@question.Id" />
-    <ul>
-        @foreach (var answer in question.Answers)
-        {
+<div>
+    <h3 class="display-4 text-center">Тестирование</h3>
+    <form method="post">
+        <div id="test">
+            <ul>
+                @foreach (var question in Model.Questions)
+                {
+    <li>
+        @question.Content
+        <input type="hidden" name="questionId" value="@question.Id" />
+        <ul>
+            @foreach (var answer in question.Answers)
+            {
 <li>
     <input class="form-check-input" type="radio" name="question_@question.Id" value="@answer.Id" />
     @answer.Content
 </li>
 }
-    </ul>
-</li>
-       }
-    </ul>
-    <input type="hidden" name="value" value="@ViewBag.Id" />
+        </ul>
+    </li>
+}
+            </ul>
+        </div>
 
-    <input type="hidden" name="result" value="@ViewBag.Result" />
+            <input type="hidden" name="value" value="@ViewBag.Id" />
 
-    <input type="hidden" name="quizid" value="@ViewBag.QuizId" />
+            <input type="hidden" name="result" value="@ViewBag.Result" />
 
-    <input class="btn btn-success" type="submit" value="@Model.Button" )" />
-
-</form>
-
+            <input type="hidden" name="quizid" value="@ViewBag.QuizId" />
+            <div class="text-center">
+                <input class="btn btn-success" type="submit" value="@Model.Button" )" />
+            </div>
+    </form>
+</div>
+   
